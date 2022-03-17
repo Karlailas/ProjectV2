@@ -36,7 +36,7 @@ class RegisterController extends AbstractController
             $this->addFlash('notice','User was created with ID: ' . $user->getId());
             return $this->redirectToRoute('register');
         }
-        return $this->render('registration_form/index.html.twig',[
+        return $this->render('registration_form/register.html.twig',[
             'controller_name' => 'RegisterController',
             'form' => $form->createView()]);
     }

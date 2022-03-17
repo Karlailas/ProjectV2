@@ -1,0 +1,73 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Items index{% endblock %}
+
+{% block body %}
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="{{ path('app_signedin_page') }}">Home</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon">xcfs</span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+            </ul>
+        </div>
+        <div>
+            {% if app.user %}
+                Logged in as {{ app.user.username }}
+                <ul>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{{ path('app_logout') }}">Logout</a>
+                    </li>
+                </ul>
+            {% endif %}
+        </div>
+    </nav>
+<div class="container">
+
+<h1>Items Catalogue</h1>
+
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Title</th>
+                <th>Photo</th>
+                <th>Created</th>
+                <th>Changed</th>
+                <th>Condition</th>
+                <th>Description</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for item in items %}
+            <tr>
+                <td>{{ item.id }}</td>
+                <td>{{ item.title }}</td>
+                <td>{{ item.photo }}</td>
+                <td>{{ item.created ? item.created|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ item.changed ? item.changed|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ item.condition }}</td>
+                <td>{{ item.conditionDescription }}</td>
+                <td>
+                    <a href="{{ path('app_items_show', {'id': item.id}) }}">show</a>
+                    <a href="{{ path('app_items_edit', {'id': item.id}) }}">edit</a>
+                    <form method="post" action="{{ path('app_items_delete', {'id': item.id}) }}" onsubmit="return confirm('Are you sure you want to delete this item?');">
+                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ item.id) }}">
+                        <button class="btn">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_items_new') }}">Create new</a>
+{% endblock %}

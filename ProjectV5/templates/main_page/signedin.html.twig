@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Item Catalogue{% endblock %}
+
+{% block body %}
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="{{ path('app_signedin_page') }}">Home</a>
+
+        <a class="navbar-brand" href="{{ path('app_items_index') }}">Catalogue</a>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+            </ul>
+        </div>
+        <div>
+            {% if app.user %}
+                Logged in as {{ app.user.username }}
+                <ul>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{{ path('app_logout') }}">Logout</a>
+                    </li>
+                </ul>
+            {% endif %}
+        </div>
+    </nav>
+    <center><h1 class="h3 mb-3 font-weight-normal">Welcome to my page!</h1></center>
+
+
+
+
+{% endblock %}
