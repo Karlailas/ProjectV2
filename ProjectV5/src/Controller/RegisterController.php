@@ -21,6 +21,7 @@ class RegisterController extends AbstractController
      * @param ManagerRegistry $doctrine
      * @return RedirectResponse|Response
      */
+
     public function registerForm(Request $request, UserPasswordEncoderInterface $passwordEncoder,ManagerRegistry $doctrine)
     {
         $user = new User();
